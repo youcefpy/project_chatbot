@@ -4,19 +4,20 @@ import '../widgets/TextFieldCB.dart';
 import '../widgets/my_button.dart';
 import '../widgets/squareTile.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegesterScreen extends StatefulWidget {
   @override
   final Function()? onTap;
-  LoginScreen({required this.onTap});
-  State<LoginScreen> createState() => _LoginScreen();
+  RegesterScreen({required this.onTap});
+  State<RegesterScreen> createState() => _RegesterScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
+class _RegesterScreen extends State<RegesterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmePasswordController = TextEditingController();
 
   //methode de connexion a l'interface
-  void signinMethod() async {
+  void signupMethod() async {
     //show loading circule
     showDialog(
         context: context,
@@ -26,11 +27,13 @@ class _LoginScreen extends State<LoginScreen> {
           );
         });
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-      Navigator.pop(context);
+      if (_passwordController.text == _confirmePasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        Navigator.pop(context);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found' || e.code == "wrong-password") {
         //show message email not fount please try again
@@ -73,21 +76,21 @@ class _LoginScreen extends State<LoginScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 30,
+              height: 50,
             ),
             //Logo
             Image.asset(
               'assets/images/logo.webp',
-              width: 200,
+              width: 100,
             ),
             SizedBox(
               height: 10,
             ),
             //some Text Welcome Back to our ChatyBot
             Text(
-              "Welcome To Askify",
+              "Créer un compte maintenant !",
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -109,6 +112,16 @@ class _LoginScreen extends State<LoginScreen> {
               labelText: "mot de passe",
               obsecureText: true,
             ),
+            SizedBox(
+              height: 10,
+            ),
+            //confirm password textField
+            TextFieldCB(
+              controller: _confirmePasswordController,
+              labelText: "confirmer le mot de passe",
+              obsecureText: true,
+            ),
+
             //forget password
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -123,10 +136,10 @@ class _LoginScreen extends State<LoginScreen> {
               ),
             ),
 
-            //sign in button
+            //sign up button
             MyButtonSingin(
-              onTap: signinMethod,
-              text: "Se connecter",
+              onTap: signupMethod,
+              text: "S'inscrire",
             ),
             const SizedBox(height: 50),
             //or continu with
@@ -179,14 +192,14 @@ class _LoginScreen extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Vous n\'avez pas un compte? ',
+                  'Vous avez un compte',
                   style: TextStyle(color: Colors.grey[700]),
                 ),
                 const SizedBox(width: 4),
                 GestureDetector(
                   onTap: widget.onTap,
                   child: const Text(
-                    'S\'inscrire maintenant',
+                    'Se connecter maintenant',
                     style: TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,

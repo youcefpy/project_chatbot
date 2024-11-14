@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_chatbot/screens/LoginScreen.dart';
+// import 'package:project_chatbot/screens/LoginScreen.dart';
 import './home_screen.dart';
+import './login_or_regester.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -15,7 +16,7 @@ class AuthScreen extends StatelessWidget {
             if (snapshot.hasData) {
               return HomeScreen();
             } else {
-              return LoginScreen();
+              return LoginOrRegester();
             }
           }),
     );
