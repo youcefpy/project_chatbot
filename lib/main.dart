@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/LoginScreen.dart';
+import 'package:project_chatbot/screens/auth_screen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'MyChatBot',
       initialRoute: '/',
       routes: {
-        "/": (context) => LoginScreen(),
+        "/": (context) => AuthScreen(),
       },
     );
   }

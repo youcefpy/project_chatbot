@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/TextFieldCB.dart';
 import '../widgets/my_button.dart';
+import '../widgets/squareTile.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,7 +14,26 @@ class _LoginScreen extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   //methode de connexion a l'interface
-  void signinMethod() {}
+  void signinMethod() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      } else {
+        print('Error: ${e.message}');
+      }
+    } catch (e) {
+      // Handle any other error
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +54,14 @@ class _LoginScreen extends State<LoginScreen> {
             ),
             //some Text Welcome Back to our ChatyBot
             Text(
-              "Welcome To Chatbot",
+              "Welcome To Askify",
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
 
             TextFieldCB(
@@ -71,35 +91,75 @@ class _LoginScreen extends State<LoginScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+
             //sign in button
             MyButtonSingin(
               onTap: signinMethod,
             ),
+            const SizedBox(height: 50),
             //or continu with
-            Text("Ou continer avec"),
+            // or continue with
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      'Ou continue Avec',
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 50),
+
             //google + apple sign in buttons
+
+            // google + apple sign in buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                // google button
+                SquareTile(imagePath: 'assets/images/google.png'),
+
+                SizedBox(width: 25),
+
+                // apple button
+                SquareTile(imagePath: 'assets/images/apple.png')
+              ],
+            ),
+
+            const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/images/apple.png",
-                  width: 30,
+                Text(
+                  'Not a member?',
+                  style: TextStyle(color: Colors.grey[700]),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                Image.asset(
-                  "assets/images/google.png",
-                  width: 30,
+                const SizedBox(width: 4),
+                const Text(
+                  'Register now',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
-            ),
-            TextButton(
-              onPressed: null,
-              child: Text("Cree un compte"),
             ),
           ],
         ),

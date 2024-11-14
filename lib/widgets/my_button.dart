@@ -10,7 +10,7 @@ class MyButtonSingin extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(
-          25,
+          20,
         ),
         margin: EdgeInsets.symmetric(
           horizontal: 25,
@@ -25,7 +25,7 @@ class MyButtonSingin extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 20,
             ),
           ),
         ),
