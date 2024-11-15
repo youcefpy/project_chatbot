@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '166944293640',
     projectId: 'projectchatbot-31035',
     storageBucket: 'projectchatbot-31035.firebasestorage.app',
+    androidClientId: '166944293640-qotbjssgf7spdt7tdmgktlnlh1o0b9aj.apps.googleusercontent.com',
+    iosClientId: '166944293640-9qh8ndeeo1lk3b2hhn82frelg968hrqc.apps.googleusercontent.com',
     iosBundleId: 'com.example.projectChatbot',
   );
 

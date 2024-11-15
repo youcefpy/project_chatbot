@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/TextFieldCB.dart';
 import '../widgets/my_button.dart';
 import '../widgets/squareTile.dart';
+import '../services/auth_services.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _LoginScreen extends State<LoginScreen> {
     //show loading circule
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (context) {
           return Center(
             child: CircularProgressIndicator(),
@@ -162,14 +164,20 @@ class _LoginScreen extends State<LoginScreen> {
             // google + apple sign in buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 // google button
-                SquareTile(imagePath: 'assets/images/google.png'),
+                SquareTile(
+                  imagePath: 'assets/images/google.png',
+                  onTap: () => AuthService().SigninWithGoogle(),
+                ),
 
                 SizedBox(width: 25),
 
                 // apple button
-                SquareTile(imagePath: 'assets/images/apple.png')
+                SquareTile(
+                  imagePath: 'assets/images/apple.png',
+                  onTap: () {},
+                )
               ],
             ),
             SizedBox(

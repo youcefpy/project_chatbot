@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_chatbot/services/auth_services.dart';
 import '../widgets/TextFieldCB.dart';
 import '../widgets/my_button.dart';
 import '../widgets/squareTile.dart';
@@ -121,21 +122,9 @@ class _RegesterScreen extends State<RegesterScreen> {
               labelText: "confirmer le mot de passe",
               obsecureText: true,
             ),
-
-            //forget password
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: null,
-                    child: Text("Mot de passe Oublier?"),
-                  ),
-                ],
-              ),
+            SizedBox(
+              height: 10,
             ),
-
             //sign up button
             MyButtonSingin(
               onTap: signupMethod,
@@ -175,14 +164,20 @@ class _RegesterScreen extends State<RegesterScreen> {
             // google + apple sign in buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 // google button
-                SquareTile(imagePath: 'assets/images/google.png'),
+                SquareTile(
+                  imagePath: 'assets/images/google.png',
+                  onTap: () => {},
+                ),
 
                 SizedBox(width: 25),
 
                 // apple button
-                SquareTile(imagePath: 'assets/images/apple.png')
+                SquareTile(
+                  imagePath: 'assets/images/apple.png',
+                  onTap: () {},
+                )
               ],
             ),
             SizedBox(
